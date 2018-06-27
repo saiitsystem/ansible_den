@@ -1,0 +1,14 @@
+---
+
+- name: Create user group(s)
+  group:
+    name: "{{ item }}"
+  with_items: "{{ user_groups }}"
+  when: user_groups
+- name: Create user
+  user:
+    generate_ssh_key: "{{ user_generate_ssh_key }}"
+    groups: "{{ user_groups }}"
+    append: True
+    name: "{{ user_name }}"
+    shell: "{{ user_shell }}"

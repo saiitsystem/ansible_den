@@ -1,0 +1,26 @@
+---
+# tasks file for java
+- name: Verify if jdk binary is present
+  stat: path=/opt/jdk-{{ jdk_version }}-linux-x64.rpm
+  register: jdk_binary
+  tags: jdk
+
+- name: Ensure wget is installed
+  yum: name=wget state=present
+  when: jdk_binary.stat.exists|bool == false
+  tags: jdk
+
+- name: Download Java jdk rpm
+#  shell: "wget --no-cookies --no-check-certificate --header 'Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie' 'http://download.oracle.com/otn-pub/java/jdk/'{{ jdk_version }}'-b13/jdk-'{{ jdk_version }}'-linux-x64.rpm' -P /opt/"
+#  shell: "wget --http-user=arun.badri@outlook.com --http-user=People123 --no-cookies --no-check-certificate --header 'Cookie:gpw_e24=http%3A%2F%2Fwww.oracle.com%2F;oraclelicense=accept-securebackup-cookie' 'http://download.oracle.com/otn/java/jdk/'{{ jdk_version_with_buildid }}'/jdk-'{{ jdk_version }}'-linux-x64.rpm' -P /opt/"
+  get_url:
+#    url: "http://download.oracle.com/otn/java/jdk/{{ jdk_version_with_buildid }}/jdk-{{ jdk_version }}-linux-x64.rpm"
+#    headers: 'Cookie:gpw_e24=http%3A%2F%2Fwww.oracle.com%2F;oraclelicense=accept-securebackup-cookie'
+		url: "{{ artifactory_url }}/jdk-{{ jdk_version }}-linux-x64.rpm"
+    dest: "/opt/jdk-{{ jdk_version }}-linux-x64.rpm"
+  when: jdk_binary.stat.exists|bool == false
+  tags: jdk
+
+- name: Install jdk
+  yum: name=/opt/jdk-{{ jdk_version }}-linux-x64.rpm state=present
+  tags: jdk

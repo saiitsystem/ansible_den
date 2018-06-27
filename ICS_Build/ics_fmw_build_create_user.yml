@@ -1,0 +1,12 @@
+---
+- name: Users and Group Creations 
+  hosts: fusionMW
+  become: true
+  roles:
+  - ics-user-group-create
+
+- name: Users and Group Creations
+  hosts: alsb 
+  become: true
+  roles:
+  - ics-user-group-create

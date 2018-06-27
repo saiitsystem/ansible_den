@@ -1,0 +1,8 @@
+---
+# defaults file for java
+#jdk_version: 7u80
+#jdk_version_with_buildid: 7u80-b15
+#artifactory_url: http://192.168.0.106:8081/artifactory/oracle-weblogic-bins
+#binary_user: weblogic
+#binary_group: weblogic
+#binary_mode: 0755

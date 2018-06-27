@@ -1,0 +1,31 @@
+user_groups: "weblogic" 
+user_name: "alsb"
+user_shell: "/bin/ksh"
+user_generate_ssh_key: False
+
+user_enable_passwordless_sudo: True
+
+user_local_ssh_key_path: "~/.ssh/id_rsa.pub"
+
+artifactory_url: http://192.168.0.106:8081/artifactory/oracle-weblogic-bins
+
+application_home: /apps
+
+java_family: jdk
+java_download_file: jdk-7u80-linux-x64.tar.gz 
+java_home: "{{ application_home }}/jdk1.7.0_80"
+
+#java_family: jrockit
+#java_download_file: jrockit-jdk1.6.0_45-R28.2.7-4.1.0-linux-x64.bin
+#java_home: "{{ application_home }}/jrockit-jdk1.6.0_45-R28.2.7-4.1.0"
+
+java: "{{ java_home }}/bin/java" 
+
+alsb_binary_os_user: "weblogic"
+alsb_binary_os_group: "weblogic"
+
+binary_user: "weblogic"
+binary_group: "weblogic"
+binary_mode: 0755
+
+binary_stage: /opt

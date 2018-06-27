@@ -1,0 +1,4 @@
+---
+- name: Deinstall jdk
+  yum: name=jdk state=absent
+  tags: jdk

@@ -1,0 +1,18 @@
+---
+# tasks file for java
+- name: Verify if jdk binary is present
+  stat: path=/opt/jdk-{{ jdk_version }}-linux-x64.rpm
+  register: jdk_binary
+  tags: jdk
+
+
+- name: Download Java jdk rpm
+  get_url:
+    url: "{{ artifactory_url }}/jdk-{{ jdk_version }}-linux-x64.rpm"
+    dest: "/opt/jdk-{{ jdk_version }}-linux-x64.rpm"
+  when: jdk_binary.stat.exists|bool == false
+  tags: jdk
+
+- name: Install jdk
+  yum: name=/opt/jdk-{{ jdk_version }}-linux-x64.rpm state=present
+  tags: jdk

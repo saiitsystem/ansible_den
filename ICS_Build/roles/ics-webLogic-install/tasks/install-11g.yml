@@ -1,0 +1,28 @@
+---
+#
+- name: "create installation directories {{ bea_home }} and {{ weblogic_home }}"
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ binary_user }}"
+    group: "{{ binary_group }}"
+    mode: "{{ binary_mode }}"
+  with_items:
+    - "{{ bea_home }}"
+#    - "{{ wls_home }}"
+#    - "{{ oracle_weblogic_inventory_directory }}"
+
+- name: generate response file
+  template:
+    src: install-wls-11g.xml.j2
+    dest: "{{ weblogic_response_file }}"
+    owner: "{{ binary_user }}"
+    group: "{{ binary_group }}"
+    mode: "{{ binary_mode }}"
+
+
+- name: install weblogic
+  shell: "{{ java }} -jar {{ binary_stage }}/{{ oracle_weblogic_jar }} -mode=silent -silent_xml={{ weblogic_response_file }} >> /tmp/weblogic-installation.log"
+#  args:
+#    creates: "{{ oracle_weblogic_oracle_home }}/oraInst.loc"
+

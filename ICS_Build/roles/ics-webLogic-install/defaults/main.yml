@@ -1,0 +1,9 @@
+---
+# defaults file for ansible-oracle-wls
+oracle_weblogic_version: 11g
+oracle_weblogic_release: 10.3.4
+oracle_weblogic_quick_installation: no
+
+oracle_weblogic_install_type: Complete with Examples # WebLogic Server
+
+oracle_weblogic_jar: wls1034_generic.jar

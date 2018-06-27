@@ -1,0 +1,19 @@
+---
+- name: Users and Group Creations 
+  hosts: fusionMW
+  become: true
+  roles:
+  - ics-user-group-create
+
+- name: ALSB users and group creation
+  hosts: alsb
+  become: true
+  roles:
+  - ics-user-group-create
+
+- name: Install Java
+  hosts: alsb
+  become: true
+  roles:
+  - ics-java-install
+

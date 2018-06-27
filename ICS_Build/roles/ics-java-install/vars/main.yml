@@ -1,0 +1,3 @@
+---
+# vars file for java
+jrockit_response_file: "{{ application_home }}/jrockit.rsp"

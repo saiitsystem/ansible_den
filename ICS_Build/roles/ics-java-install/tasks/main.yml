@@ -1,0 +1,22 @@
+---
+# check which task needs to run based on java family
+
+- name: Verify if {{java_home }} exists
+  stat: path={{ java_home }}
+  register: java_home_exists
+
+
+- include: jdk_install.yml
+  when: java_home_exists.stat.exists|bool == false and java_family == 'jdk'
+
+- include: jrockit_install.yml 
+  when: java_home_exists.stat.exists|bool == false and java_family == 'jrockit'
+
+
+#- name: check to install jdk family
+#    include: jdk_install.yml 
+#  when: {{ java_family }} == jdk 
+
+#- include: jrockit_install.yml
+# # when:
+#    - "{{ java_family }} == jrockit"

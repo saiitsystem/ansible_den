@@ -1,0 +1,40 @@
+---
+# tasks file for java
+- name: Verify if jdk binary is present
+  stat: path={{ binary_stage }}/{{ java_download_file }}
+  register: jdk_binary
+  tags: jdk
+
+
+- name: Download Java jdk zip 
+  get_url:
+    url: "{{ artifactory_url }}/{{ java_download_file }}"
+    dest: "{{ binary_stage }}/{{ java_download_file }}"
+    owner: "{{ binary_user }}"
+    group: "{{ binary_group }}"
+    mode: "{{ binary_mode }}"
+  when: jdk_binary.stat.exists|bool == false
+  tags: jdk
+
+#- name: Install jdk
+#  yum: 
+#    name: /opt/jdk-{{ jdk_version }}-linux-x64.rpm
+#    state: present
+#  tags: jdk
+
+- name: Creating Middleware Binary Installation
+  file:
+    path: "{{ application_home }}" 
+    owner: "{{ binary_user }}" 
+    group: "{{ binary_group }}"
+    mode: "{{ binary_mode }}"
+    state: directory 
+
+- name: Unarchive jdk installation
+  unarchive:
+    src: "{{ binary_stage }}/{{ java_download_file }}" 
+    dest: "{{ application_home }}"
+    owner: "{{ binary_user }}"
+    group: "{{ binary_group }}"
+    mode: "{{ binary_mode }}"
+    remote_src: yes

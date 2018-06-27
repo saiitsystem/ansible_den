@@ -1,0 +1,41 @@
+---
+# tasks file for java
+- name: Verify if jrockit binary is present
+  stat: path={{ binary_stage }}/{{ java_download_file }}
+  register: jrockit_binary
+  tags: jrockit
+
+
+- name: Download Java JRockit artefact
+  get_url:
+    url: "{{ artifactory_url }}/{{ java_download_file }}"
+    dest: "{{ binary_stage }}/{{ java_download_file }}"
+    owner: "{{ binary_user }}"
+    group: "{{ binary_group }}"
+    mode: "{{ binary_mode }}"
+  when: jrockit_binary.stat.exists|bool == false
+  tags: jrockit
+
+
+- name: Creating Middleware Binary Installation
+  file:
+    path: "{{ application_home }}" 
+    owner: "{{ binary_user }}" 
+    group: "{{ binary_group }}"
+    mode: "{{ binary_mode }}"
+    state: directory 
+
+- name: Generate response file for JRockit Installation
+  template:
+    src: install-jrockit.xml.j2 
+    dest: "{{ jrockit_response_file }}"
+    owner: "{{ binary_user }}"
+    group: "{{ binary_group }}"
+    mode: "{{ binary_mode }}"
+
+- name: Install JRockit
+  shell: "{{ item }}"
+  with_items:
+    - "{{ binary_stage }}/{{ java_download_file }} -mode=silent -silent_xml={{ jrockit_response_file }}"
+    - "chown -R {{binary_user}}:{{ binary_group }} {{ java_home }}"
+    - "chmod -R 755 {{ java_home }}"

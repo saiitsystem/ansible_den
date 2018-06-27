@@ -1,0 +1,35 @@
+---
+# prepare operating system to the installation
+#- name: create weblogic group
+#  group:
+#    name: "{{ oracle_weblogic_group }}"
+#    state: present
+
+#- name: create weblogic user
+#  user:
+#    name: "{{ oracle_weblogic_user }}"
+#    group: "{{ oracle_weblogic_group }}"
+#    createhome: yes
+#    home: "{{ oracle_weblogic_user_home }}"
+#    state: present
+
+#- name: prepare oracle inventory parameters
+#  template:
+#    src: ora_inst.loc.j2
+#    dest: "/etc/oraInst.loc"
+
+- name: Verify if weblogic binary is present
+  stat: path={{ binary_stage }}/{{ oracle_weblogic_jar }}
+  register: weblogic_binary
+  tags: weblogic_binary 
+
+
+- name: Download wls artefacts from artifactory
+  get_url:
+    url: "{{ artifactory_url }}/{{ oracle_weblogic_jar }}"
+    dest: "{{ binary_stage }}/{{ oracle_weblogic_jar }}"
+    owner: "{{ binary_user }}"
+    group: "{{ binary_group }}"
+    mode: "{{ binary_mode }}"
+  when: weblogic_binary.stat.exists|bool == false
+  tags: weblogic 
