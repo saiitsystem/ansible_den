@@ -1,0 +1,2 @@
+- include: ics_fmw_build.yml
+- include: ics_wlsbasedomaincreate.yml

@@ -1,12 +1,4 @@
 ---
-# vars file for ansible-oracle-wls
-OS_weblogic_user: "{{ alsb_binary_os_user }}"
-OS_weblogic_group: "{{ alsb_binary_os_group }}" 
-middleware_user_home: /apps
-
-bea_home: "{{ middleware_user_home }}/middleware"
-weblogic_home: "{{ bea_home }}/wlserver_10.3"
-
 #oracle_weblogic_inventory_directory: /opt/oraclefmw/inventory
 
 weblogic_response_file: "{{ middleware_user_home }}/wls.rsp"

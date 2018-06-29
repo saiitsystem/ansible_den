@@ -12,8 +12,8 @@ artifactory_url: http://192.168.0.106:8081/artifactory/oracle-weblogic-bins
 application_home: /apps
 
 java_family: jdk
-java_download_file: jdk-7u80-linux-x64.tar.gz 
-java_home: "{{ application_home }}/jdk1.7.0_80"
+java_download_file: jdk1.6.0_41.tar.gz 
+java_home: "{{ application_home }}/jdk1.6.0_41"
 
 #java_family: jrockit
 #java_download_file: jrockit-jdk1.6.0_45-R28.2.7-4.1.0-linux-x64.bin
@@ -29,3 +29,52 @@ binary_group: "weblogic"
 binary_mode: 0755
 
 binary_stage: /opt
+
+# vars file for ansible-oracle-wls
+OS_weblogic_user: "{{ alsb_binary_os_user }}"
+OS_weblogic_group: "{{ alsb_binary_os_group }}"
+middleware_user_home: /apps
+
+bea_home: "{{ middleware_user_home }}/middleware"
+weblogic_home: "{{ bea_home }}/wlserver_10.3"
+
+
+# Oracle os user and group
+oracle_user: "{{ user_name }}" 
+oracle_group: "{{ user_groups }}"
+# Software and configuration main directory
+oracle_base: "{{ middleware_user_home }}"
+
+# JDK installer and target folder
+#jdk_installation_archive: 'jdk-7u85-linux-x64.tar.gz'
+jdk_folder: "{{ java_home }}"
+
+# fmw installer
+#mw_installer: 'fmw_12.1.3.0.0_infrastructure.jar'
+
+# database settings for repository
+#dbserver_name: '192.168.56.11'
+#dbserver_port: '1521'
+#dbserver_service: 'pdborcl.private'
+#repository_prefix: 'wls12c2'
+
+# Domain Name
+domain_name: "base_domain"
+
+# Nodemanager and server settings
+node_manager_listen_port: "5556"
+node_manager_listen_address: "alsbhost"
+admin_server_hostname: "lasbhost"
+admin_server_port: "7001"
+managed_server_name: "alsbsrv1"
+managed_server_port: "7003"
+
+ansible_fqdn: "alsbsrv1"
+
+##secret.yml#### should be in vault ####
+datasource_password: "oracle"
+nodemanager_password: "welcome1"
+weblogic_admin_pass: "welcome1"
+#oracle_os_user_pass: '$6$P7jw3OaWKdR$tRSRPjTey.SPqhyLBxOKbm9k21MEYF6jHDUH2O03RPvISDVnkGqWNg1W6iJqZhqD3ErbdJZqUEuNnEuoAWHWO/'
+#sysdba_passwd: 'oracle'
+#datasource_password: 'oracle'
