@@ -1,24 +1,27 @@
 ---
 - name: Users and Group Creations 
-  hosts: fusionMW
+  hosts: ics 
   become: true
+  vars:
+    user_name: 'weblogic'
   roles:
   - ics-user-group-create
+    
 
-- name: ALSB users and group creation
-  hosts: alsb
+- name: cus users and group creation
+  hosts: cus 
   become: true
   roles:
   - ics-user-group-create
 
 - name: Install Java
-  hosts: alsb
+  hosts: ics 
   become: true
   roles:
   - ics-java-install
 
 - name: Install WebLogic server	
-  hosts: alsb
+  hosts: ics 
   become: true
   roles:
   - ics-webLogic-install

@@ -1,0 +1,5 @@
+# ==> copy boot.properties to AdminServer
+- name: Create security folder on Admin Server
+  file: state=directory path={{ domain_home }}/servers/{{ admin_server_name }}/security owner={{ oracle_user }} group={{ oracle_group }}
+- name: Create boot.properties file
+  template: src=boot.properties dest={{ domain_home }}/servers/{{ admin_server_name }}/security/ owner={{ oracle_user }} group={{ oracle_group }}

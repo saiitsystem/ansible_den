@@ -1,4 +1,13 @@
 ---
+- name: Creating Staging Directory
+  file:
+    path: "{{ binary_stage }}"
+    owner: "{{ binary_user }}"
+    group: "{{ binary_group }}"
+    mode: "{{ binary_mode }}"
+    state: directory
+  become: yes
+
 # tasks file for java
 - name: Verify if jdk binary is present
   stat: path={{ binary_stage }}/{{ java_download_file }}

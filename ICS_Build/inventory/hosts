@@ -42,11 +42,18 @@
 
 ## db-[99:101]-node.example.com
 
-[fusionMW]
-linuxtest1
+#[fusionMW]
+#linuxtest1
 
-[weblogic]
-weblogicsrv1 ansible_ssh_host=192.168.0.89
+[cus]
+cussrv1 ansible_ssh_host=192.168.0.89
+cusadmin ansible_ssh_host=192.168.0.89
 
-[alsb:children]
-weblogic
+[ics:children]
+cus
+
+[cus:children]
+cusadmin
+
+[cusadmin]
+cusadmin ansible_ssh_host=192.168.0.89 

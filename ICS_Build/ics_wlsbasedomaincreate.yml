@@ -1,6 +1,6 @@
 ---
 - name: Create wls 10.x and 10.3.x domains
-  hosts: alsb 
+  hosts: ics 
   sudo: True
 #  vars_files:
     # User defined variables for infrastructure
@@ -15,4 +15,4 @@
     # adding hostname to remote ip 
     - name: fix host file 192.168.0.89 entry
 #      lineinfile: dest=/etc/hosts regexp='^127\.0\.0\.1' line='127.0.0.1 localhost localhost.localdomain localhost4 localhost4.localdomain4' owner=root group=root mode=0644
-      lineinfile: dest=/etc/hosts line='192.168.0.89 alsbhost' owner=root group=root mode=0644
+      lineinfile: dest=/etc/hosts line='192.168.0.89 cusadmin cussrv1 mach1' owner=root group=root mode=0644

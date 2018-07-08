@@ -1,5 +1,5 @@
 user_groups: "weblogic" 
-user_name: "alsb"
+user_name: "cus"
 user_shell: "/bin/ksh"
 user_generate_ssh_key: False
 
@@ -7,9 +7,7 @@ user_enable_passwordless_sudo: True
 
 user_local_ssh_key_path: "~/.ssh/id_rsa.pub"
 
-artifactory_url: http://192.168.0.106:8081/artifactory/oracle-weblogic-bins
 
-application_home: /apps
 
 java_family: jdk
 java_download_file: jdk1.6.0_41.tar.gz 
@@ -21,19 +19,11 @@ java_home: "{{ application_home }}/jdk1.6.0_41"
 
 java: "{{ java_home }}/bin/java" 
 
-alsb_binary_os_user: "weblogic"
-alsb_binary_os_group: "weblogic"
-
-binary_user: "weblogic"
-binary_group: "weblogic"
-binary_mode: 0755
-
-binary_stage: /opt
 
 # vars file for ansible-oracle-wls
-OS_weblogic_user: "{{ alsb_binary_os_user }}"
-OS_weblogic_group: "{{ alsb_binary_os_group }}"
-middleware_user_home: /apps
+OS_weblogic_user: "{{ binary_user }}"
+OS_weblogic_group: "{{ binary_group }}"
+middleware_user_home: "{{ application_home }}" 
 
 bea_home: "{{ middleware_user_home }}/middleware"
 weblogic_home: "{{ bea_home }}/wlserver_10.3"
@@ -59,14 +49,16 @@ jdk_folder: "{{ java_home }}"
 #repository_prefix: 'wls12c2'
 
 # Domain Name
-domain_name: "base_domain"
+domain_name: "cusdomain"
+env: "1"
 
 # Nodemanager and server settings
 node_manager_listen_port: "5556"
-node_manager_listen_address: "alsbhost"
-admin_server_hostname: "lasbhost"
-admin_server_port: "7001"
-managed_server_name: "alsbsrv1"
+node_manager_listen_address: "mach1"
+admin_server_hostname: "cusadmin"
+admin_server_port: "9101"
+admin_server_name: "cusadmin"
+managed_server_name: "cussrv1"
 managed_server_port: "7003"
 
 ansible_fqdn: "alsbsrv1"

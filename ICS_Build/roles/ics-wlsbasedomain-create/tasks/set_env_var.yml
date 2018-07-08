@@ -1,0 +1,5 @@
+# ==> Create Environment Variables for Oracle user
+#- name: Creates new .bashrc file with system variables
+#  template: src=.bashrc dest=/home/oracle/.bashrc
+- name: Add Oracle Home environment variables
+  lineinfile: dest='/home/{{ oracle_user }}/.bashrc' line='export ORACLE_HOME={{ middleware_home }}'

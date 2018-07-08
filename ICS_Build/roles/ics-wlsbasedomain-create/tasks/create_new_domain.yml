@@ -1,0 +1,35 @@
+# ==> Copy the required jython script for domain creation
+- name: copy create domain python script
+#  template: src=create-domain.py dest={{ mw_installer_folder }} owner={{ oracle_user }} group={{ oracle_group }}
+  template: 
+    src: '{{item.src}}'
+    dest: '{{ mw_installer_folder }}'
+    owner: '{{ oracle_user }}'
+    group: '{{ oracle_group }}'
+  with_items:
+      - { src: 'config.py' }
+
+- name: Transfer the supporting files 
+  copy:
+    src: '{{item.src}}'
+    dest: '{{ mw_installer_folder }}'
+    owner: '{{ oracle_user }}'
+    group: '{{ oracle_group }}'
+  with_items:
+      - { src: 'config.py.properties' }
+      - { src: 'c2sSecretcusdomain' }
+      - { src: 'c2sConfigcusdomain' }
+
+  
+# ==> Create new domain
+- name: Execute create domain script
+  command: "{{ item }}"
+  register: standardout
+  ignore_errors: True
+  with_items:
+    - "{{ weblogic_home }}/common/bin/wlst.sh {{ mw_installer_folder }}/config.py"
+    - "chown -R {{user_name}}:{{ user_groups }} {{ oracle_base }}/{{ user_name}}"
+    - "chmod -R 755 {{ oracle_base }}/{{ user_name}}"
+  sudo_user: '{{ oracle_user }}'
+- debug: var=standardout.stdout_lines
+

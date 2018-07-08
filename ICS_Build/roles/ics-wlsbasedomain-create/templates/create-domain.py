@@ -1,6 +1,6 @@
 
 domain_application_home = '{{ applications_home }}/{{ domain_name }}'
-domain_configuration_home = '{{ domains_home }}/{{ domain_name }}'
+domain_configuration_home = '{{ domain_home }}'
 domain_name = '{{ domain_name }}'
 java_home = '{{ jdk_folder }}'
 middleware_home = '{{ middleware_home }}'

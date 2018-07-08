@@ -1,0 +1,19 @@
+user_groups: "weblogic" 
+user_name: "weblogic"
+user_shell: "/bin/ksh"
+user_generate_ssh_key: False
+
+user_enable_passwordless_sudo: True
+
+user_local_ssh_key_path: "~/.ssh/id_rsa.pub"
+
+artifactory_url: http://192.168.0.106:8081/artifactory/oracle-weblogic-bins
+
+application_home: /opt/apps/bea
+
+
+binary_user: "weblogic"
+binary_group: "weblogic"
+binary_mode: 0755
+
+binary_stage: /mystore/ics_stage
